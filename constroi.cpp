@@ -52,7 +52,16 @@ Grafo criaGrafo(void)
 int main(void)
 {
     Grafo g = criaGrafo();
-    g.printVizinhos(63);
+    int a;
+    printf("Escolha:\n 1- Para ver os vertices e seus vizinhos\n 2- para ver o coeficiente dos vertices");
+    switch(a){
+        case 1:
+        g.printVizinhos(63);
+        break;
+        case 2:
+        g.coefAglomeracao(1, g);
+        break;
+    }
 
     return 0;
 }

@@ -14,7 +14,7 @@ public:
     Grafo(int Vertice); // construtor
     void addAresta(int vertice, int v);
     void printVizinhos(int n);
-    bool Grafo::coefAglomeracao(int vertice, Grafo grafo);
+    float Grafo::coefAglomeracao(int vertice, Grafo grafo);
     bool existeElemento(int elemento, int vertice);
     bool eVizinho(int vertice, int elemento);
 };
@@ -40,7 +40,7 @@ void Grafo::printVizinhos(int n){
 }
 
 
-bool Grafo::coefAglomeracao(int vertice, Grafo grafo){
+float Grafo::coefAglomeracao(int vertice, Grafo grafo){
         int triangulos = 0;
         int numVizinhos = adjacencia[vertice].size();
         int paresDistintos;
@@ -58,6 +58,7 @@ bool Grafo::coefAglomeracao(int vertice, Grafo grafo){
     }    
     paresDistintos = numVizinhos * ((numVizinhos-1)/2);
     coeficiente = triangulos/paresDistintos;
+    return coeficiente;
 
 
 }
