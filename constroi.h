@@ -14,7 +14,7 @@ public:
     Grafo(int Vertice); // construtor
     void addAresta(int vertice, int v);
     void printVizinhos(int n);
-    float Grafo::coefAglomeracao(int vertice, Grafo grafo);
+    float coefAglomeracao(int vertice, Grafo grafo);
     bool existeElemento(int elemento, int vertice);
     bool eVizinho(int vertice, int elemento);
 };
@@ -41,23 +41,27 @@ void Grafo::printVizinhos(int n){
 
 
 float Grafo::coefAglomeracao(int vertice, Grafo grafo){
-        int triangulos = 0;
-        int numVizinhos = adjacencia[vertice].size();
-        int paresDistintos;
-        int coeficiente;
+        float triangulos = 0;
+        float numVizinhos = adjacencia[vertice].size();
+        float paresDistintos;
+        float coeficiente;
     for( list<int>::iterator iterador = adjacencia[vertice].begin(); iterador != adjacencia[vertice].end(); iterador ++){
-        int aux;
-        aux = *iterador;
-        list<int>::iterator it = iterador ++;
+        int *aux = &*iterador;
+        list<int>::iterator it = iterador;
+        advance(it, 1); //avança o iterador it
         for(it; it!= adjacencia[vertice].end(); it++){
-            int elemento = *it;
-            if(grafo.existeElemento(aux, elemento)){
+           
+            if(grafo.existeElemento( *aux, *it)){
+               
                 triangulos ++;
             };
         }
     }    
     paresDistintos = numVizinhos * ((numVizinhos-1)/2);
     coeficiente = triangulos/paresDistintos;
+    if(triangulos == 0){
+        coeficiente =0;
+    }
     return coeficiente;
 
 
@@ -70,7 +74,7 @@ bool Grafo::existeElemento(int elemento, int vertice){
  
     if(it != adjacencia[vertice].end()){
 
-        getchar();
+        
         return true;        cout<< "o elemento" << elemento << "ja esta na lista";
         }
         else{ 
@@ -82,3 +86,14 @@ bool Grafo::existeElemento(int elemento, int vertice){
     return false;
 
 }
+
+// void Grafo::BornKerbosch(vector<int>R, vector<int>P, vector<int>X, vector<vector<int>> CliqueMax){
+//     if(P.empty() && X.empty()){
+//         CliqueMax.push_back(R);
+//     }
+//     vector<int> Paux = P;//Vetor auxiliar igual a P
+
+//     //iterar sobre P aux
+
+
+// }

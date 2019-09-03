@@ -1,6 +1,13 @@
+//Trabalho 1 Grafos 2019/02
+//Professor: Díbio
+//Esse trabalho foi realizado por:
+// Bruno Sanguinette
+// Nayara Rossi Brito da Silva  170153304
+
 #include <stdio.h>
 #include <vector>
 #include <iostream>
+#include<numeric>
 #include <list>
 #include <algorithm> // função find
 #include "constroi.h"
@@ -49,19 +56,69 @@ Grafo criaGrafo(void)
     return grafo;
 }
 
-int main(void)
-{
-    Grafo g = criaGrafo();
-    int a;
-    printf("Escolha:\n 1- Para ver os vertices e seus vizinhos\n 2- para ver o coeficiente dos vertices");
-    switch(a){
+void menu(Grafo g){
+    int escolha;
+    int quit= 0;
+    vector<float> coefs;//Vetor que guarda todos os coeficientes
+    while(quit == 0){
+    printf("Digite:\n 1- Para imprimir vertices e seus vizinhos\n 2- Para o coeficiente de Aglomeração de cada vértice \n 3- para o coeficiente de Aglomeração total \n 5- Sair\n\n");
+    
+    scanf("%d", &escolha);
+    switch(escolha){
         case 1:
         g.printVizinhos(63);
         break;
+
         case 2:
-        g.coefAglomeracao(1, g);
+        for(int v =1; v<63; v++){
+        float a = g.coefAglomeracao(v, g);
+        cout<< "O coeficiente de aglomeração do vértice " << v << " é " << a << "\n";
+        };
+        break;
+
+        case 3:
+
+        float soma;
+        float CoefGraf;
+        for(int v =1; v<63; v++){
+            float a = g.coefAglomeracao(v, g);
+            coefs.push_back(a);
+            soma = accumulate(coefs.begin(), coefs.end(), 0.0);
+            CoefGraf = soma / 62;
+    
+        }
+        cout<< "O coeficiente de aglomeração do Gráfico é: " << CoefGraf;
+        coefs.clear();
+        break;
+
+        case 5:
+        quit = 1;
         break;
     }
+    }
+}
+
+int main(void)
+{
+    Grafo g = criaGrafo();
+//    g.printVizinhos(63);
+    // vector<float> coefs;//Vetor que guarda todos os coeficientes
+    // float soma;
+    // float CoefGraf;
+    // for(int v =1; v<63; v++){
+    // float a = g.coefAglomeracao(v, g);
+    // cout<< "O coeficiente de aglomeração do vértice " << v << " é " << a << "\n";
+    // }
+
+    // for(int v =1; v<63; v++){
+    // float a = g.coefAglomeracao(v, g);
+    // coefs.push_back(a);
+    // soma = accumulate(coefs.begin(), coefs.end(), 0.0);
+    // CoefGraf = soma / 62;
+    
+    // }
+    // cout<< "O coeficiente de aglomeração do Gráfico é: " << CoefGraf;
+    menu(g);
 
     return 0;
 }
